@@ -1,0 +1,307 @@
+// second file 
+/*** FONTS ***/
+@import url(https://fonts.googleapis.com/css?family=Montserrat:900|Raleway:400,400i,700,700i);
+
+
+
+/*** VARIABLES ***/
+/* Colors */
+$black: #1d1f20;
+$blue: #fab700;
+$green: #fab700;
+$yellow: #fab700;
+$white: #fafafa;
+
+
+
+/*** EXTEND ***/
+/* box-shadow */
+%boxshadow {
+  box-shadow: 0.25rem 0.25rem 0.6rem rgba(0,0,0,0.05), 0 0.5rem 1.125rem rgba(75,0,0,0.05);
+}
+
+
+
+/*** STYLE ***/
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: $white;
+  color: $black;
+  font-family: 'Raleway', sans-serif;
+}
+
+main {
+  overflow: auto;
+  display: block;
+  margin: 0 auto;
+  max-width: 40rem;
+  padding: 1rem;
+}
+
+
+ol.gradient-list {
+  counter-reset: gradient-counter;
+  list-style: none;
+  margin: 1.75rem 0;
+  padding-left: 1rem;
+  > li {
+    background: white;
+    border-radius: 0 0.5rem 0.5rem 0.5rem;
+    @extend %boxshadow;
+    counter-increment: gradient-counter;
+    margin-top: 1rem;
+    min-height: 3rem;
+    padding: 1rem 1rem 1rem 3rem;
+    position: relative;
+    &::before,
+    &::after {
+      background: linear-gradient(135deg, $blue 0%,$green 100%);
+      border-radius: 1rem;
+      content: '';
+      height: 3rem;
+      left: -1rem;
+      overflow: hidden;
+      position: absolute;
+      top: -0.4rem;
+      width: 3rem;
+    }
+    &::before {
+      align-items: flex-end;
+      @extend %boxshadow;
+      content: counter(gradient-counter);
+      color: $black;
+      display: flex;
+      font: 900 1.5em/1 'Montserrat';
+      justify-content: flex-end;
+      padding: 0.125em 0.25em;
+      z-index: 1;
+    }
+    @for $i from 1 through 5 {
+      &:nth-child(10n+#{$i}):before {
+        background: linear-gradient(135deg, rgba($green, $i * 0.2) 0%,rgba($yellow, $i * 0.2) 100%);
+      }
+    }
+    @for $i from 6 through 10 {
+      &:nth-child(10n+#{$i}):before {
+        background: linear-gradient(135deg, rgba($green, 1 - (($i - 5) * 0.2)) 0%,rgba($yellow, 1 - (($i - 5) * 0.2)) 100%);
+      }
+    }
+    + li {
+      margin-top: 2rem;
+    }
+  }
+}
+// first file 
+@import url('https://rsms.me/inter/inter.css');
+
+:root {
+  --color-light: white;
+  --color-dark: #212121;
+  --color-signal: #fab700;
+  
+  --color-background: var(--color-light);
+  --color-text: var(--color-dark);
+  --color-accent: var(--color-signal);
+  
+  --size-bezel: .5rem;
+  --size-radius: 4px;
+  
+  line-height: 1.4;
+  
+  font-family: 'Inter', sans-serif;
+  font-size: calc(.6rem + .4vw);
+  color: var(--color-text);
+  background: var(--color-background);
+  font-weight: 300;
+//   padding: 0 calc(var(--size-bezel) * 3);
+}
+
+h1, h2, h3 {
+  font-weight: 900;
+}
+
+mark {
+  background: var(--color-accent);
+  color: var(--color-text);
+  font-weight: bold;
+  padding: 0 0.2em;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    gap: 0.5rem;
+  background: var(--color-background);
+  padding: calc(4 * var(--size-bezel));
+//   margin-top: calc(4 * var(--size-bezel));
+  border-radius: var(--size-radius);
+  border: 3px solid var(--color-shadow, currentColor);
+  box-shadow: .5rem .5rem 0 var(--color-shadow, currentColor);
+  
+  &--inverted {
+    --color-background: var(--color-dark);
+    color: var(--color-light);
+    --color-shadow: var(--color-accent);
+  }
+  
+  &--accent {
+    --color-background: var(--color-signal);
+    --color-accent: var(--color-light);
+    color: var(--color-dark);
+  }
+  
+  *:first-child {
+    margin-top: 0;
+  }
+}
+
+
+.l-design-widht {
+  max-width: 40rem;
+  padding: 1rem;
+}
+
+.input {
+  position: relative;
+  
+  &__label {
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: calc(var(--size-bezel) * 0.75) calc(var(--size-bezel) * .5);
+    margin: calc(var(--size-bezel) * 0.75 + 3px) calc(var(--size-bezel) * .5);
+    background: pink;
+    white-space: nowrap;
+    transform: translate(0, 0);
+    transform-origin: 0 0;
+    background: var(--color-background);
+    transition: transform 120ms ease-in;
+    font-weight: bold;
+    line-height: 1.2;
+  }
+  &__field {
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    border: 3px solid currentColor;
+    padding: calc(var(--size-bezel) * 1.5) var(--size-bezel);
+    color: currentColor;
+    background: transparent;
+    border-radius: var(--size-radius);
+    
+    &:focus,
+    &:not(:placeholder-shown) {
+      & + .input__label {
+        transform: translate(.25rem, -65%) scale(.8);
+        color: var(--color-accent);
+      }
+    }
+  }
+}
+
+
+.button-group {
+  margin-top: calc(var(--size-bezel) * 2.5);
+}
+
+button {
+  color: currentColor;
+  padding: var(--size-bezel) calc(var(--size-bezel) * 2);
+  background: var(--color-accent);
+  border: none;
+  border-radius: var(--size-radius);
+  font-weight: 900;
+  
+  &[type=reset]{
+    background: var(--color-background);
+    font-weight: 200;
+  } 
+}
+
+button + button {
+  margin-left: calc(var(--size-bezel) * 2);
+}
+
+.icon {
+  display: inline-block;
+  width: 1em; height: 1em;
+  margin-right: .5em;
+}
+
+.hidden {
+  display: none;
+}
+
+/* mesbahi */
+html {
+  height: 100vh;
+  width: 100vw;
+  padding: 0%;
+}
+
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  background-color: lightgray;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0%;
+  padding: 0%;
+}
+
+.mainSection {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 90vw;
+  height: 90vh;
+  background: url(/stylesheets/bcg.jpg) no-repeat center fixed;
+  background-size: cover;
+}
+
+div.createTask {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+  border-right: 1px solid black;
+}
+
+div.createTask form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  gap: 1rem;
+}
+
+div.allTasks {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 60%;
+  position :relative;
+}

@@ -6,8 +6,8 @@ router.get('/',forwardAuthenticated, function(req, res, next) {
   res.render('welcome');
 });
 // dashboard
-router.get('/dashboard',ensurAuthenticated,(req,res)=>{
-  res.render("dashboard",{name : req.user.name})
+router.get('/dashboard',(req,res)=>{
+  res.render("dashboard", { layout: false })
 })
 
 module.exports = router;
