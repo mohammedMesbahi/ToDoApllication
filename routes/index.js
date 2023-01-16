@@ -6,7 +6,7 @@ router.get('/',forwardAuthenticated, function(req, res, next) {
   res.render('welcome');
 });
 // dashboard
-router.get('/dashboard',(req,res)=>{
+router.get('/dashboard',ensurAuthenticated,(req,res)=>{
   res.render("dashboard", { layout: false })
 })
 

@@ -1,9 +1,10 @@
 var express = require('express');
 const User = require('../models/User');
+const Task = require('../models/Task');
 var bcrypt = require('bcrypt');
 var router = express.Router();
 var passport = require("passport");
-var { forwardAuthenticated } = require("../config/auth");
+var {ensurAuthenticated,forwardAuthenticated } = require('../config/auth');
 /* Login page. */
 router.get('/login',forwardAuthenticated, function (req, res, next) {
   res.render('login');
@@ -78,4 +79,46 @@ router.get('/logout', function (req, res, next) {
   req.flash("success_msg","you logged out with success");
   res.redirect('/users/login');
 });
+// create task handler
+router.post('/createTask',ensurAuthenticated,(req,res) => {
+  const {task} = req.body;
+  if(task != ''){
+    var newTask = new Task({
+      owner:req.session.passport.user,
+      content:task
+    });
+    console.log(newTask);
+    newTask.save()
+    .then(result => {
+      res.status(200).send();
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(501).send();
+    })
+  
+  } else {
+    res.status(401).send();
+  }
+  
+})
+router.get("/allTasks",ensurAuthenticated,async (req,res) => {
+  const alltasks = await Task.find({owner:req.session.passport.user},{_id: 1, content: 1, date: 1}).exec();
+  console.log(alltasks);
+});
+router.post("/deleteTask",ensurAuthenticated,async (req,res) => {
+  const {taskId} = req.body;
+  if (taskId.match(/^[0-9a-fA-F]{24}$/)) {
+    // Yes, it's a valid ObjectId, proceed with `findByIdAndDelete` call.
+    Task.findByIdAndDelete(taskId).exec()
+    .then(result => {
+      res.send();
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(502).send();
+    })
+
+  }
+})
 module.exports = router;
