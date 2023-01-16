@@ -90,7 +90,8 @@ router.post('/createTask',ensurAuthenticated,(req,res) => {
     console.log(newTask);
     newTask.save()
     .then(result => {
-      res.status(200).send();
+      req.flash("success_msg","added with success")
+      res.redirect("/dashboard");
     })
     .catch(err => {
       console.log(err);
@@ -103,8 +104,9 @@ router.post('/createTask',ensurAuthenticated,(req,res) => {
   
 })
 router.get("/allTasks",ensurAuthenticated,async (req,res) => {
-  const alltasks = await Task.find({owner:req.session.passport.user},{_id: 1, content: 1, date: 1}).exec();
-  console.log(alltasks);
+  const allTasks = await Task.find({owner:req.session.passport.user},{_id: 1, content: 1, date: 1}).exec();
+  res.render('dashboard', {allTasks});
+  console.log(res.locals)
 });
 router.post("/deleteTask",ensurAuthenticated,async (req,res) => {
   const {taskId} = req.body;

@@ -42,6 +42,7 @@ body {
 }
 
 main {
+  width: 90%;
   overflow: auto;
   display: block;
   margin: 0 auto;
@@ -299,9 +300,22 @@ div.createTask form {
 div.allTasks {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   height: 100%;
   width: 60%;
   position :relative;
+}
+.alert-success {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 5px;
+  background-color: lightgreen;
+
+}
+.alert-success button{
+  padding: 10px;
+  background-color:lightgreen;
 }
