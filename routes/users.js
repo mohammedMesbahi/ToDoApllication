@@ -71,7 +71,7 @@ router.post('/login', (req, res, next) => {
   })(req, res, next);
 });
 // logout handle
-router.get('/logout', function (req, res, next) {
+router.post('/logout', function (req, res, next) {
 
   req.logout(function (err) {
     if (err) { 
@@ -85,14 +85,11 @@ router.get('/logout', function (req, res, next) {
 router.post('/createTask', ensurAuthenticated, (req, res) => {
   const { task } = req.body;
   if (task != '') {
-    var newTask = new Task({
+    Task.create({
       owner: req.session.passport.user,
       content: task
-    });
-    console.log(newTask);
-    newTask.save()
+    })
       .then(result => {
-        req.flash("success_msg", "added with success")
         res.redirect("/dashboard");
       })
       .catch(err => {
@@ -110,11 +107,9 @@ router.get("/allTasks", ensurAuthenticated, async (req, res) => {
   const allTasks = await Task.find({ owner: req.session.passport.user }, { _id: 1, content: 1, date: 1 }).exec();
   res.render('dashboard', { allTasks });
 });
-router.post("/deleteTask", ensurAuthenticated, async (req, res) => {
-  console.log(req);
+router.delete("/deleteTask", ensurAuthenticated, async (req, res) => {
   const { taskId } = req.body;
-  if(taskId)
-  if (taskId.match(/^[0-9a-fA-F]{24}$/)) {
+  if (taskId && taskId.match(/^[0-9a-fA-F]{24}$/)) {
     // Yes, it's a valid ObjectId, proceed with `findByIdAndDelete` call.
     Task.findByIdAndDelete(taskId).exec()
       .then(result => {
