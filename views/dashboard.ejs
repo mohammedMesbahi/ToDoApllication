@@ -20,14 +20,14 @@
                 <use xlink:href="#icon-coffee" href="#icon-coffee" />
               </svg>Add a Task</h2>
             <label class="input">
-              <input class="input__field" type="text" placeholder=" " name="task" />
+              <input class="input__field" type="text" placeholder=" " name="task" required/>
               <span class="input__label"> type here</span>
             </label>
             <div class="button-group">
               <button type="submit" id="btnAdd">Add</button>
               <button type="reset">Reset</button>
             </div>
-            <button id="btnlogout"><a href="/users/logout" class="btn btn-secondary btn-block">Logout</a>
+            <button id="btnlogout"><a href="users/logout" class="btn btn-secondary btn-block">Logout</a>
             </button>
         </div>
       </form>
@@ -37,7 +37,9 @@
         <ol class="gradient-list">
           <% if(locals.allTasks){ %>
             <% locals.allTasks.forEach((task) => { %>
-              <li><%= task.content %></li>
+              <li id=<%= task.id %> ><%= task.content %>
+                <button class="btndelete">delete</button>
+              </li>
             <% }); %> <% } %>
         </ol>
       </main>

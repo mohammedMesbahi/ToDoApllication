@@ -17,7 +17,7 @@ $white: #fafafa;
 /*** EXTEND ***/
 /* box-shadow */
 %boxshadow {
-  box-shadow: 0.25rem 0.25rem 0.6rem rgba(0,0,0,0.05), 0 0.5rem 1.125rem rgba(75,0,0,0.05);
+  box-shadow: 0.25rem 0.25rem 0.6rem rgba(0, 0, 0, 0.05), 0 0.5rem 1.125rem rgba(75, 0, 0, 0.05);
 }
 
 
@@ -56,7 +56,8 @@ ol.gradient-list {
   list-style: none;
   margin: 1.75rem 0;
   padding-left: 1rem;
-  > li {
+
+  >li {
     background: white;
     border-radius: 0 0.5rem 0.5rem 0.5rem;
     @extend %boxshadow;
@@ -65,9 +66,10 @@ ol.gradient-list {
     min-height: 3rem;
     padding: 1rem 1rem 1rem 3rem;
     position: relative;
+
     &::before,
     &::after {
-      background: linear-gradient(135deg, $blue 0%,$green 100%);
+      background: linear-gradient(135deg, $blue 0%, $green 100%);
       border-radius: 1rem;
       content: '';
       height: 3rem;
@@ -77,6 +79,7 @@ ol.gradient-list {
       top: -0.4rem;
       width: 3rem;
     }
+
     &::before {
       align-items: flex-end;
       @extend %boxshadow;
@@ -88,21 +91,25 @@ ol.gradient-list {
       padding: 0.125em 0.25em;
       z-index: 1;
     }
+
     @for $i from 1 through 5 {
       &:nth-child(10n+#{$i}):before {
-        background: linear-gradient(135deg, rgba($green, $i * 0.2) 0%,rgba($yellow, $i * 0.2) 100%);
+        background: linear-gradient(135deg, rgba($green, $i * 0.2) 0%, rgba($yellow, $i * 0.2) 100%);
       }
     }
+
     @for $i from 6 through 10 {
       &:nth-child(10n+#{$i}):before {
-        background: linear-gradient(135deg, rgba($green, 1 - (($i - 5) * 0.2)) 0%,rgba($yellow, 1 - (($i - 5) * 0.2)) 100%);
+        background: linear-gradient(135deg, rgba($green, 1 - (($i - 5) * 0.2)) 0%, rgba($yellow, 1 - (($i - 5) * 0.2)) 100%);
       }
     }
-    + li {
+
+    +li {
       margin-top: 2rem;
     }
   }
 }
+
 // first file 
 @import url('https://rsms.me/inter/inter.css');
 
@@ -110,25 +117,27 @@ ol.gradient-list {
   --color-light: white;
   --color-dark: #212121;
   --color-signal: #fab700;
-  
+
   --color-background: var(--color-light);
   --color-text: var(--color-dark);
   --color-accent: var(--color-signal);
-  
+
   --size-bezel: .5rem;
   --size-radius: 4px;
-  
+
   line-height: 1.4;
-  
+
   font-family: 'Inter', sans-serif;
   font-size: calc(.6rem + .4vw);
   color: var(--color-text);
   background: var(--color-background);
   font-weight: 300;
-//   padding: 0 calc(var(--size-bezel) * 3);
+  //   padding: 0 calc(var(--size-bezel) * 3);
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   font-weight: 900;
 }
 
@@ -140,29 +149,29 @@ mark {
 }
 
 .card {
-    display: flex;
-    flex-direction: column;
-    width: 80%;
-    gap: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  gap: 0.5rem;
   background: var(--color-background);
   padding: calc(4 * var(--size-bezel));
-//   margin-top: calc(4 * var(--size-bezel));
+  //   margin-top: calc(4 * var(--size-bezel));
   border-radius: var(--size-radius);
   border: 3px solid var(--color-shadow, currentColor);
   box-shadow: .5rem .5rem 0 var(--color-shadow, currentColor);
-  
+
   &--inverted {
     --color-background: var(--color-dark);
     color: var(--color-light);
     --color-shadow: var(--color-accent);
   }
-  
+
   &--accent {
     --color-background: var(--color-signal);
     --color-accent: var(--color-light);
     color: var(--color-dark);
   }
-  
+
   *:first-child {
     margin-top: 0;
   }
@@ -176,7 +185,7 @@ mark {
 
 .input {
   position: relative;
-  
+
   &__label {
     position: absolute;
     left: 0;
@@ -192,6 +201,7 @@ mark {
     font-weight: bold;
     line-height: 1.2;
   }
+
   &__field {
     box-sizing: border-box;
     display: block;
@@ -201,10 +211,10 @@ mark {
     color: currentColor;
     background: transparent;
     border-radius: var(--size-radius);
-    
+
     &:focus,
     &:not(:placeholder-shown) {
-      & + .input__label {
+      &+.input__label {
         transform: translate(.25rem, -65%) scale(.8);
         color: var(--color-accent);
       }
@@ -224,20 +234,21 @@ button {
   border: none;
   border-radius: var(--size-radius);
   font-weight: 900;
-  
-  &[type=reset]{
+
+  &[type=reset] {
     background: var(--color-background);
     font-weight: 200;
-  } 
+  }
 }
 
-button + button {
+button+button {
   margin-left: calc(var(--size-bezel) * 2);
 }
 
 .icon {
   display: inline-block;
-  width: 1em; height: 1em;
+  width: 1em;
+  height: 1em;
   margin-right: .5em;
 }
 
@@ -304,8 +315,9 @@ div.allTasks {
   align-items: center;
   height: 100%;
   width: 60%;
-  position :relative;
+  position: relative;
 }
+
 .alert-success {
   display: flex;
   gap: 10px;
@@ -315,7 +327,35 @@ div.allTasks {
   background-color: lightgreen;
 
 }
-.alert-success button{
+
+.alert-success button {
   padding: 10px;
-  background-color:lightgreen;
+  background-color: lightgreen;
+}
+
+ol.gradient-list li {
+  display: flex;
+  justify-content: space-between;
+}
+
+ol.gradient-list li button {
+  box-shadow: 7px 6px 28px 1px rgba(0, 0, 0, 0.24);
+  cursor: pointer;
+  outline: none;
+  transition: 0.2s all;
+}
+
+ol.gradient-list li button:active {
+  transform: scale(0.98);
+  /* Scaling button to 0.98 to its original size */
+  box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+  /* Lowering the shadow */
+}
+form button {
+  cursor: pointer;
+  outline: none;
+  transition: 0.2s all;
+}
+form button {
+  transform: scale(0.98);
 }
